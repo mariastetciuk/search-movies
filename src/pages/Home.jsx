@@ -19,15 +19,18 @@ const Home = () => {
   }, []);
 
   return (
-    <ul>
-      {trendingMovies.map(movie => {
-        return (
-          <li key={movie.id}>
-            <Link to={`/movies/:${movie.id}`}>{movie.title}</Link>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <h1>Trending today</h1>
+      <ul>
+        {trendingMovies.map(movie => {
+          return (
+            <li key={movie.id}>
+              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 

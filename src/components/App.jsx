@@ -3,7 +3,7 @@ import Home from 'pages/Home';
 import Movies from 'pages/Movies';
 import Layout from './SharedLayout/Layout';
 import MovieDetails from 'pages/MovieDetails';
-import Cats from './Cast/Cast';
+import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
 
 export const App = () => {
@@ -23,8 +23,8 @@ export const App = () => {
           <Route index element={<Home />} />
           <Route path="movies" element={<Movies />} />
           <Route path="movies/:movieId" element={<MovieDetails />} />
-          <Route path="movies/:movieId/cast" element={<Cats />} />
-          <Route path="movies/:movieId/review" element={<Reviews />} />
+          <Route path="movies/:movieId/cast" element={<Cast />}></Route>
+          <Route path="movies/:movieId/reviews" element={<Reviews />} />
         </Route>
       </Routes>
     </div>
