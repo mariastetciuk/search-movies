@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export async function fetchMovies(params) {
+export async function fetchMovies(params, query) {
   const BASE_URL = 'https://api.themoviedb.org/3/';
   const API_KEY = '3ecc7363f263881322228195a13f9a25';
 
   return await axios.get(
-    `${BASE_URL}${params}?api_key=${API_KEY}&language=en-US`
+    `${BASE_URL}${params}?api_key=${API_KEY}&${query}&language=en-US`
   );
 }
 // ?language=en-US`, {
