@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Link, useParams, Outlet } from 'react-router-dom';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { Link, useParams, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovies } from 'API/themoviedbApi';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   const url = 'https://image.tmdb.org/t/p/w500';
   const [movie, setMovie] = useState({});
@@ -14,7 +16,6 @@ const MovieDetails = () => {
       try {
         const { data } = await fetchMovies(params);
         setMovie(data);
-        // console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -30,9 +31,13 @@ const MovieDetails = () => {
 
   return (
     <div>
-      <button type="button">go back</button>
+      <Link to={backLinkLocationRef.current}>go back</Link>
       <article>
-        <img src={url + movie.poster_path} alt={movie.title} width="300" />
+        <img
+          src={movie.poster_path ? url + movie.poster_path : ''}
+          alt={movie.title}
+          width="300"
+        />
         <h2>
           {movie.title}({getYearMovie(movie.release_date)})
         </h2>
@@ -50,7 +55,9 @@ const MovieDetails = () => {
         <h2>Additional information</h2>
         <Link to="cast">Cast</Link>
         <Link to="reviews">Reviews</Link>
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </section>
     </div>
   );

@@ -20,21 +20,24 @@ const Cast = () => {
     featch();
   }, [movieId]);
   return (
-    <ul>
-      {cast.map(item => {
-        return (
-          <li key={item.id}>
-            <img
-              src={`${url}${item.profile_path}`}
-              alt={item.name}
-              width="150"
-            />
-            <p>{item.name}</p>
-            <p>Character: {item.character}</p>
-          </li>
-        );
-      })}
-    </ul>
+    <section>
+      {cast.length === 0 && <p>We don`t have any cast for this movie</p>}
+      <ul>
+        {cast.map(item => {
+          return (
+            <li key={item.id}>
+              <img
+                src={item.profile_path ? `${url}${item.profile_path}` : ''}
+                alt={item.name}
+                width="150"
+              />
+              <p>{item.name}</p>
+              <p>Character: {item.character}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 };
 

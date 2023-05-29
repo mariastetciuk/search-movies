@@ -1,23 +1,22 @@
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovies } from 'API/themoviedbApi';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
+  const location = useLocation();
 
-  const query = searchParams.get('query');
+  const query = searchParams.get('query') ?? '';
 
   useEffect(() => {
-    if (!query) return;
+    if (query === '') return;
     const params = 'search/movie';
     const queryParams = `query=${query}`;
     async function featch() {
       try {
         const { data } = await fetchMovies(params, queryParams);
         setMovies(data.results);
-
-        console.log(data.results);
       } catch (error) {
         console.log(error);
       }
@@ -27,7 +26,9 @@ const Movies = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    setSearchParams({ query: event.target.elements.input.value });
+    const searchQuery = event.target.elements.input.value;
+
+    setSearchParams({ query: searchQuery });
     event.target.reset();
   };
 
@@ -41,7 +42,9 @@ const Movies = () => {
         {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+              <Link to={`/movies/${movie.id}`} state={{ from: location }}>
+                {movie.title}
+              </Link>
             </li>
           );
         })}

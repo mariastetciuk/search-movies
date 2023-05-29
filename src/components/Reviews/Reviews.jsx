@@ -19,7 +19,7 @@ const Reviews = () => {
   }, [movieId]);
   return (
     <section>
-      {reviews.length === 0 && <h2>We don't have ary reviews this movie</h2>}
+      {reviews.length === 0 && <p>We don`t have any reviews for this movie</p>}
       <ul>
         {reviews.map(review => {
           return (
