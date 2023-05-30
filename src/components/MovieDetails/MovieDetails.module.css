@@ -1,3 +1,13 @@
+.wrapper {
+  width: 120px;
+  font-size: 20px;
+  color: black;
+  margin-bottom: 20px;
+  background-color: rgb(243, 237, 237);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 .title {
   margin-bottom: 15px;
 }

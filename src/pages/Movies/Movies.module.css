@@ -33,7 +33,7 @@
 .btn:hover,
 .btn:focus {
   color: black;
-  background-color: gray;
+  background-color: rgb(223, 217, 217);
   border: 1px solid black;
 }
 

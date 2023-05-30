@@ -1,7 +1,17 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { Link, useParams, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovies } from 'API/themoviedbApi';
-import css from './MovieDetails.module.css';
+// import css from './MovieDetails.module.css';
+import { BiArrowBack } from 'react-icons/bi';
+import {
+  StyledLink,
+  Wrapper,
+  Title,
+  Title2,
+  Text,
+  Item,
+  Article,
+} from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -32,40 +42,41 @@ const MovieDetails = () => {
 
   return (
     <div>
-      <Link to={backLinkLocationRef.current}>go back</Link>
-      <article className={css.article}>
+      <Wrapper>
+        <BiArrowBack />
+        <StyledLink to={backLinkLocationRef.current}>go back</StyledLink>
+      </Wrapper>
+      <Article>
         <img
           src={movie.poster_path ? url + movie.poster_path : ''}
           alt={movie.title}
           width="350"
           height="450"
         />
-        <div className={css.wraper}>
-          <h2 className={css.title}>
+        <div>
+          <Title>
             {movie.title}({getYearMovie(movie.release_date)})
-          </h2>
-          <p className={css.text}>
-            User Score: {(movie.vote_average * 10).toFixed()}%
-          </p>
-          <h3 className={css.title}>Overview</h3>
-          <p className={css.text}>{movie.overview}</p>
-          <h3 className={css.title}>Genres</h3>
-          <p className={css.text}>
+          </Title>
+          <Text>User Score: {(movie.vote_average * 10).toFixed()}%</Text>
+          <Title2>Overview</Title2>
+          <Text>{movie.overview}</Text>
+          <Title2>Genres</Title2>
+          <Text>
             {movie.genres
               ? movie.genres.map(genre => genre.name).join(' ')
               : ''}
-          </p>
+          </Text>
         </div>
-      </article>
+      </Article>
       <section>
         <h3>Additional information</h3>
         <ul>
-          <li className={css.item}>
+          <Item>
             <Link to="cast">Cast</Link>
-          </li>
-          <li className={css.item}>
+          </Item>
+          <Item>
             <Link to="reviews">Reviews</Link>
-          </li>
+          </Item>
         </ul>
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />

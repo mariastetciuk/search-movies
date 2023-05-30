@@ -2,6 +2,7 @@ import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovies } from 'API/themoviedbApi';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { CiSearch } from 'react-icons/ci';
 import css from './Movies.module.css';
 
 const Movies = () => {
@@ -48,7 +49,7 @@ const Movies = () => {
           placeholder="Search movies"
         />
         <button className={css.btn} type="submit">
-          Search
+          <CiSearch color="black" fontSize="40px" />
         </button>
       </form>
       <ul>
