@@ -1,6 +1,7 @@
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovies } from 'API/themoviedbApi';
+import css from './Movies.module.css';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,14 +35,21 @@ const Movies = () => {
 
   return (
     <section>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="input" placeholder="Search movies" />
-        <button type="submit">Search</button>
+      <form onSubmit={handleSubmit} className={css.form}>
+        <input
+          className={css.input}
+          type="text"
+          name="input"
+          placeholder="Search movies"
+        />
+        <button className={css.btn} type="submit">
+          Search
+        </button>
       </form>
       <ul>
         {movies.map(movie => {
           return (
-            <li key={movie.id}>
+            <li key={movie.id} className={css.item}>
               <Link to={`/movies/${movie.id}`} state={{ from: location }}>
                 {movie.title}
               </Link>

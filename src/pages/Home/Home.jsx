@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchMovies } from 'API/themoviedbApi';
 import { Link, useLocation } from 'react-router-dom';
+import css from './Home.module.css'
 const params = 'trending/movie/day';
 
 const Home = () => {
@@ -21,11 +22,11 @@ const Home = () => {
 
   return (
     <>
-      <h1>Trending today</h1>
-      <ul>
+      <h1 className={css.title}>Trending today</h1>
+      <ul className={css.list}>
         {trendingMovies.map(movie => {
           return (
-            <li key={movie.id}>
+            <li key={movie.id} className={css.item}>
               <Link to={`/movies/${movie.id}`} state={{ from: location }}>
                 {movie.title}
               </Link>

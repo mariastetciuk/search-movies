@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { Link, useParams, Outlet, useLocation } from 'react-router-dom';
 import { fetchMovies } from 'API/themoviedbApi';
+import css from './MovieDetails.module.css';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -32,29 +33,40 @@ const MovieDetails = () => {
   return (
     <div>
       <Link to={backLinkLocationRef.current}>go back</Link>
-      <article>
+      <article className={css.article}>
         <img
           src={movie.poster_path ? url + movie.poster_path : ''}
           alt={movie.title}
           width="300"
+          height="400"
         />
-        <h2>
-          {movie.title}({getYearMovie(movie.release_date)})
-        </h2>
-        <p>Vote average: {movie.vote_average}</p>
-        <h3>Overview</h3>
-        <p>{movie.overview}</p>
-
-        <h3>Genres</h3>
-
-        <p>
-          {movie.genres ? movie.genres.map(genre => genre.name).join(' ') : ''}
-        </p>
+        <div className={css.wraper}>
+          <h2>
+            {movie.title}({getYearMovie(movie.release_date)})
+          </h2>
+          <p className={css.text}>
+            Vote average: {(movie.vote_average * 10).toFixed()}%
+          </p>
+          <h3>Overview</h3>
+          <p className={css.text}>{movie.overview}</p>
+          <h3>Genres</h3>
+          <p className={css.text}>
+            {movie.genres
+              ? movie.genres.map(genre => genre.name).join(' ')
+              : ''}
+          </p>
+        </div>
       </article>
       <section>
-        <h2>Additional information</h2>
-        <Link to="cast">Cast</Link>
-        <Link to="reviews">Reviews</Link>
+        <h3>Additional information</h3>
+        <ul>
+          <li className={css.item}>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li className={css.item}>
+            <Link to="reviews">Reviews</Link>
+          </li>
+        </ul>
         <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
         </Suspense>
