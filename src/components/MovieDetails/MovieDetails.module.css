@@ -1,12 +1,17 @@
+.title {
+  margin-bottom: 15px;
+}
+
 .article {
   display: flex;
   gap: 20px;
-  justify-content: center;
+  margin-bottom: 30px;
 }
 
 .text {
   font-size: 19px;
   font-weight: 400;
+  margin-bottom: 20px;
 }
 .item {
   font-size: 19px;

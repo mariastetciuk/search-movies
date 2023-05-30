@@ -1,6 +1,7 @@
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovies } from 'API/themoviedbApi';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import css from './Movies.module.css';
 
 const Movies = () => {
@@ -18,6 +19,10 @@ const Movies = () => {
       try {
         const { data } = await fetchMovies(params, queryParams);
         setMovies(data.results);
+
+        if (data.results.length === 0) {
+          return Notify.failure('Sorry, but nothing found');
+        }
       } catch (error) {
         console.log(error);
       }

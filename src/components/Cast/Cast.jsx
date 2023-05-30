@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovies } from 'API/themoviedbApi';
+import css from './Cast.module.css';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -22,16 +23,17 @@ const Cast = () => {
   return (
     <section>
       {cast.length === 0 && <p>We don`t have any cast for this movie</p>}
-      <ul>
+      <ul className={css.list}>
         {cast.map(item => {
           return (
-            <li key={item.id}>
+            <li key={item.id} className={css.item}>
               <img
+                className={css.img}
                 src={item.profile_path ? `${url}${item.profile_path}` : ''}
                 alt={item.name}
                 width="150"
               />
-              <p>{item.name}</p>
+              <h3 className={css.name}>{item.name}</h3>
               <p>Character: {item.character}</p>
             </li>
           );

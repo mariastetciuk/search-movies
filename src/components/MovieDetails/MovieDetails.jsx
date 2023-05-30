@@ -37,19 +37,19 @@ const MovieDetails = () => {
         <img
           src={movie.poster_path ? url + movie.poster_path : ''}
           alt={movie.title}
-          width="300"
-          height="400"
+          width="350"
+          height="450"
         />
         <div className={css.wraper}>
-          <h2>
+          <h2 className={css.title}>
             {movie.title}({getYearMovie(movie.release_date)})
           </h2>
           <p className={css.text}>
-            Vote average: {(movie.vote_average * 10).toFixed()}%
+            User Score: {(movie.vote_average * 10).toFixed()}%
           </p>
-          <h3>Overview</h3>
+          <h3 className={css.title}>Overview</h3>
           <p className={css.text}>{movie.overview}</p>
-          <h3>Genres</h3>
+          <h3 className={css.title}>Genres</h3>
           <p className={css.text}>
             {movie.genres
               ? movie.genres.map(genre => genre.name).join(' ')
