@@ -8,12 +8,15 @@ import css from './Movies.module.css';
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
+  const [inputText, setInputText] = useState('');
   const location = useLocation();
 
   const query = searchParams.get('query') ?? '';
 
   useEffect(() => {
     if (query === '') return;
+
+    setInputText(query);
     const params = 'search/movie';
     const queryParams = `query=${query}`;
     async function featch() {
@@ -33,10 +36,14 @@ const Movies = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+
     const searchQuery = event.target.elements.input.value;
 
     setSearchParams({ query: searchQuery });
-    event.target.reset();
+  };
+
+  const handleInputChange = event => {
+    setInputText(event.target.value);
   };
 
   return (
@@ -46,6 +53,8 @@ const Movies = () => {
           className={css.input}
           type="text"
           name="input"
+          onChange={handleInputChange}
+          value={inputText}
           placeholder="Search movies"
         />
         <button className={css.btn} type="submit">
